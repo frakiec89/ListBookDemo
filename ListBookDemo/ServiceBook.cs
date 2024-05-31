@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ListBookDemo.DB
 {
@@ -42,7 +38,7 @@ namespace ListBookDemo.DB
             }
             catch (ArgumentException ex)
             {
-               throw  ex;
+                throw;
             }
             catch (Exception  ex) 
             { 
