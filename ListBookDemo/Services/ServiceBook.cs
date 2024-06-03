@@ -1,23 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-
-namespace ListBookDemo.DB
+namespace ListBookDemo.DB.Services
 {
     public class ServiceBook
     {
         SqliteContext _context;
-        public ServiceBook ()
+        public ServiceBook()
         {
-            _context = new SqliteContext ();    
-        }
-       
-        public List<Book> Books { get => _context.Books.ToList(); }
-        public List<BookHistory> BooksUser (int  userid)
-        {
-            return _context.BookHistories.Where(x=>x.UserId == userid).Include(x=>x.Book).ToList();
+            _context = new SqliteContext();
         }
 
-        public void BookHistoriesAdd (int  userId  , int  bookId)
+        public List<Book> Books { get => _context.Books.ToList(); }
+        public List<BookHistory> BooksUser(int userid)
+        {
+            return _context.BookHistories.Where(x => x.UserId == userid).Include(x => x.Book).ToList();
+        }
+
+        public void BookHistoriesAdd(int userId, int bookId)
         {
             try
             {
@@ -25,8 +24,7 @@ namespace ListBookDemo.DB
                 var us = _context.Users.Find(userId);
 
                 if (_context.BookHistories.Any(x => x.UserId == us.UserId && x.BookId == book.BookId))
-                    throw new  ArgumentException("такая книга уже куплена");
-
+                    throw new ArgumentException("такая книга уже куплена");
 
                 _context.BookHistories.Add(new BookHistory
                 {
@@ -34,14 +32,15 @@ namespace ListBookDemo.DB
                     DateTime = DateTime.Now,
                     UserId = us.UserId
                 });
+
                 _context.SaveChanges();
             }
             catch (ArgumentException ex)
             {
                 throw;
             }
-            catch (Exception  ex) 
-            { 
+            catch (Exception ex)
+            {
                 throw new Exception("Error db");
             }
         }

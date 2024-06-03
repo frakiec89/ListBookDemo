@@ -1,15 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ListBookDemo.DB.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace ListBookDemo.DB
 {
-    public class Book
+    public class Book : ObjectBase
     {
         [Key]
         public int BookId { get; set; }
-        public string Name { get; set; }
         public double Experience { get; set; }
         public double Price { get; set; }
-        public string ImagePath { get; set; } 
-
     }
 }

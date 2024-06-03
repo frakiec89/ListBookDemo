@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿using ListBookDemo.DB.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace ListBookDemo.DB
 {
@@ -15,21 +15,32 @@ namespace ListBookDemo.DB
             optionsBuilder.UseSqlite("Data Source=GameDb.db");
         }
 
+        public DbSet<StatusUser> StatusUsers { get; set; }  
+        public DbSet<Junior> Juniors { get; set; }
+        public DbSet<Middle> Middles { get; set; }
+
+
+
         public DbSet<Book> Books { get; set;}
         public DbSet<User> Users { get; set; }
-
         public DbSet<BookHistory> BookHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+                        
+            
+
+
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
-                    new User { UserId= 1 ,  Name="TestUser"},
-
+                    new User { UserId= 1 ,  Name="TestUser"
+                    , ImagePath=@"/Image\NoImage.png" ,
+                        Experience = 0 
+                    }
                 });
 
-            modelBuilder.Entity<Book>().HasData(
+                modelBuilder.Entity<Book>().HasData(
                 new Book[]
                 {
                     new Book { BookId=1 , Name="C# Для  чайников"  , Experience=100 , Price = 50  , ImagePath= @"/Image\NoImage.png" },

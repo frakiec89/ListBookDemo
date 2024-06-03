@@ -19,14 +19,31 @@ namespace ListBookDemo.DB.Migrations
                 {
                     BookId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Experience = table.Column<double>(type: "REAL", nullable: false),
                     Price = table.Column<double>(type: "REAL", nullable: false),
-                    ImagePath = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagePath = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.BookId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusUsers",
+                columns: table => new
+                {
+                    StatusUserId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MinExperience = table.Column<double>(type: "REAL", nullable: false),
+                    SalaryCoefficient = table.Column<double>(type: "REAL", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagePath = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusUsers", x => x.StatusUserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,11 +52,19 @@ namespace ListBookDemo.DB.Migrations
                 {
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Experience = table.Column<double>(type: "REAL", nullable: false),
+                    StatusUserId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagePath = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_StatusUsers_StatusUserId",
+                        column: x => x.StatusUserId,
+                        principalTable: "StatusUsers",
+                        principalColumn: "StatusUserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -75,14 +100,18 @@ namespace ListBookDemo.DB.Migrations
                 values: new object[,]
                 {
                     { 1, 100.0, "/Image\\NoImage.png", "C# Для  чайников", 50.0 },
-                    { 2, 1000.0, "/Image\\NoImage.png", "C# Для  мидлов", 500.0 },
-                    { 3, 1000.0, "/Image\\NoImage.png", "C# Для  Проффи", 5000.0 }
+                    { 2, 1000.0, "/Image\\NoImage.png", "Чистый код”, Роберт Мартин", 500.0 },
+                    { 3, 1000.0, "/Image\\NoImage.png", "Программист-прагматик. Путь от подмастерья к мастеру”, Эндрю Хант и Дэвид Томас", 5000.0 },
+                    { 4, 1000.0, "/Image\\NoImage.png", "Рефакторинг. Улучшение существующего кода”, Мартин Фаулер", 5000.0 },
+                    { 5, 1000.0, "/Image\\NoImage.png", "Искусство программирования”, Дональд Кнут", 5000.0 },
+                    { 6, 1000.0, "/Image\\NoImage.png", "“Шаблоны корпоративных приложений”, Мартин Фаулер", 5000.0 },
+                    { 7, 1000.0, "/Image\\NoImage.png", "Алгоритмы. Построение и анализ”, Томас Х. Кормен, Чарльз И. Лейзерсон, Рональд Л. Ривест, Клиффорд Штайн", 5000.0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "Name" },
-                values: new object[] { 1, "TestUser" });
+                columns: new[] { "UserId", "Experience", "ImagePath", "Name", "StatusUserId" },
+                values: new object[] { 1, 0.0, "/Image\\NoImage.png", "TestUser", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookHistories_BookId",
@@ -93,6 +122,11 @@ namespace ListBookDemo.DB.Migrations
                 name: "IX_BookHistories_UserId",
                 table: "BookHistories",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_StatusUserId",
+                table: "Users",
+                column: "StatusUserId");
         }
 
         /// <inheritdoc />
@@ -106,6 +140,9 @@ namespace ListBookDemo.DB.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "StatusUsers");
         }
     }
 }

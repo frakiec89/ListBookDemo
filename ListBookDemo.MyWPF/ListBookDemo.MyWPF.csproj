@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ListBookDemo.BL\ListBookDemo.BL.csproj" />
     <ProjectReference Include="..\ListBookDemo\ListBookDemo.DB.csproj" />
   </ItemGroup>
 

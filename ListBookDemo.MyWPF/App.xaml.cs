@@ -1,4 +1,5 @@
 ﻿using ListBookDemo.DB;
+using ListBookDemo.DB.Model;
 using System.Configuration;
 using System.Data;
 using System.Windows;

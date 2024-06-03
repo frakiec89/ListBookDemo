@@ -1,4 +1,6 @@
-﻿using ListBookDemo.DB;
+﻿using ListBookDemo.BL;
+using ListBookDemo.DB;
+using ListBookDemo.DB.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +17,14 @@ namespace ListBookDemo.MyWPF.Forms
     public partial class BooksWindow : Window
     {
 
-        ServiceBook _service; 
+        ServiceBook _service;
+        GameLogic _gameLogic;
+
         public BooksWindow()
         {
             InitializeComponent();
             _service = new ServiceBook();
-
+            _gameLogic = new GameLogic(App.User);
             listBook.ItemsSource = _service.Books;
 
         }
@@ -37,14 +41,12 @@ namespace ListBookDemo.MyWPF.Forms
                 {
                     try
                     {
-                        _service.BookHistoriesAdd(App.User.UserId, book.BookId);
-                        MessageBox.Show("Книга куплена");
+                        _gameLogic.BayBook(book, (x) => MessageBox.Show(x)); 
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-                  
                 }
             }
         }

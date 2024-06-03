@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ListBookDemo.DB.Model;
 
 namespace ListBookDemo.DB
 {
