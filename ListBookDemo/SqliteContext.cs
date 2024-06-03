@@ -36,7 +36,7 @@ namespace ListBookDemo.DB
                 {
                     new User { UserId= 1 ,  Name="TestUser"
                     , ImagePath=@"/Image\NoImage.png" ,
-                        Experience = 0 
+                        Experience = 0  , Wallet = 100000
                     }
                 });
 

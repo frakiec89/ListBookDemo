@@ -21,9 +21,10 @@ namespace ListBookDemo.BL
             {
                 _service.BookHistoriesAdd(_user.UserId, book.BookId);
                 _user.Experience += book.Experience;
+                _user.Bay(book.Price);
                 _usService.SaveUser(_user);
 
-                message($"Книга куплена: Опыт игрока поменялся:\n текущий  опыт {_user.Experience}");
+                message($"Книга куплена: Опыт игрока поменялся:\n текущий  опыт: {_user.Experience}, деньги: {_user.Wallet}");
             }
             catch (Exception ex)
             {
