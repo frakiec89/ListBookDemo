@@ -7,6 +7,11 @@ namespace ListBookDemo.BL
     public  class GameLogic
     {
         private User _user;
+
+        ServiceBook _service = new ServiceBook();
+        UserService _usService = new UserService();
+
+
         public GameLogic(User  user )
         {
             _user = user;
@@ -15,8 +20,7 @@ namespace ListBookDemo.BL
 
         public void BayBook (Book book , Action<string> message)
         {
-            var   _service = new ServiceBook();
-            var _usService = new UserService();
+          
             try
             {
                 _service.BookHistoriesAdd(_user.UserId, book.BookId);
@@ -32,5 +36,30 @@ namespace ListBookDemo.BL
             }
         }
 
+        public void NetxStatus(StatusType type, Action<string> message)
+        {
+            StatusUser statusUser = new StatusUser(); 
+            switch (type)
+            {
+                case StatusType.No:  statusUser = new StatusUser();
+                    break; 
+                case StatusType.Junior: statusUser = new Junior(); break;
+                case StatusType.Middle: statusUser = new Middle(); break;
+            }
+
+            try
+            {
+                if (statusUser.Available(_user))
+                {
+                    _user.Status = statusUser;
+                    _usService.SaveUser(_user);
+                    message($"Пользователь поменял статус на {_user.Status.Name}");
+                }
+            }
+            catch (Exception ex)
+            {
+                message(ex.Message);
+            }
+        }
     }
 }

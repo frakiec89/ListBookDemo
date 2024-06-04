@@ -1,5 +1,6 @@
 ﻿using ListBookDemo.DB;
 using ListBookDemo.DB.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using System.Data;
 using System.Windows;
@@ -17,7 +18,7 @@ namespace ListBookDemo.MyWPF
         public App ()
         {
             sqliteContext = new SqliteContext ();
-            User = sqliteContext.Users.Find(1);
+            User = sqliteContext.Users.Include(x=>x.Status).Where(x=>x.UserId==1).First();
         }
     }
 

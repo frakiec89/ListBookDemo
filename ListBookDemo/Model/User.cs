@@ -11,7 +11,8 @@ namespace ListBookDemo.DB.Model
         public double Experience { get; set; }
         public double Wallet {  get; internal set; }
 
-        public StatusUser? Status {  get; set; } 
+       
+        public StatusUser? Status {  get  ; set; } 
 
 
         public void Bay (double price)

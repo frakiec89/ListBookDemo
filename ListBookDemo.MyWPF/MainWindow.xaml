@@ -6,9 +6,111 @@
         xmlns:local="clr-namespace:ListBookDemo.MyWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Border" x:Key="baseBord">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="BorderBrush"
+                    Value="Black" />
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style TargetType="Border" BasedOn="{StaticResource baseBord}">
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style TargetType="Label" >
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <StackPanel HorizontalAlignment="Center"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition   />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Style="{StaticResource baseBord}">
+            <Grid x:Name="gridUser">
+                <StackPanel>
+
+                    <Label HorizontalAlignment="Center">Игрок:</Label>
+
+                    <Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Имя:</Label>
+                            <Label Content="{Binding Name}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Опыт:</Label>
+                            <Label Content="{Binding Experience}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Деньги:</Label>
+                            <Label Content="{Binding Wallet}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border>
+                        <StackPanel
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Label >
+                                Статус:</Label>
+                            <Label Content="{Binding Status.Name}" 
+                                   ToolTip="{Binding Status}"
+                                   />
+
+                            <Border VerticalAlignment="Center">
+                                <StackPanel 
+                                    Orientation="Horizontal">
+                                    <Label>Подать на:</Label>
+                                    <Button 
+                                        x:Name="btnJun"
+                                        Click="Button_Click_NextStatus">J</Button>
+                                    <Button 
+                                        x:Name="btnMidle"
+                                        Click="Button_Click_NextStatus">M</Button>
+                                    <Button 
+                                        x:Name="btnS"
+                                        Click="Button_Click_NextStatus">S</Button>
+                                </StackPanel>
+                            </Border>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Button x:Name="TEMPFARM" Click="TEMPFARM_Click">Фармить  опыт</Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+
+
+
+        <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Center"
+                    Grid.Column="0" Grid.Row="1"
                     >
             <Button
                 Margin="5" Padding="5"

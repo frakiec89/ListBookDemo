@@ -12,14 +12,17 @@ namespace ListBookDemo.DB.Model
         {
             if (user.Experience < MinExperience)
                 return false;
-
             return true;
         }
     }
 
     public class Junior : StatusUser
     {
-        Junior () {  MinExperience = 100; SalaryCoefficient = 0.2;  }
+        public Junior () {
+            MinExperience = 100;
+            SalaryCoefficient = 0.2;
+            base.Name = "Джун";
+        }
 
         public override bool Available(User user)
         {
@@ -30,10 +33,11 @@ namespace ListBookDemo.DB.Model
 
     public class Middle : StatusUser
     {
-        Middle ()
+       public  Middle ()
         {
             MinExperience = 500;
-            SalaryCoefficient = 0.5; 
+            SalaryCoefficient = 0.5;
+            base.Name = "Мидл";
         }
     }
 }
