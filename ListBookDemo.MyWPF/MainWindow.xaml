@@ -53,21 +53,22 @@
                     <Border>
                         <StackPanel Orientation="Horizontal">
                             <Label>Имя:</Label>
-                            <Label Content="{Binding Name}" />
+                            <Label Content="{Binding Name,
+                                UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Border>
 
                     <Border>
                         <StackPanel Orientation="Horizontal">
                             <Label>Опыт:</Label>
-                            <Label Content="{Binding Experience}" />
+                            <Label Content="{Binding Experience,UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Border>
 
                     <Border>
                         <StackPanel Orientation="Horizontal">
                             <Label>Деньги:</Label>
-                            <Label Content="{Binding Wallet}" />
+                            <Label Content="{Binding Wallet,UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Border>
 
@@ -77,7 +78,7 @@
                             Orientation="Horizontal">
                             <Label >
                                 Статус:</Label>
-                            <Label Content="{Binding Status.Name}" 
+                            <Label Content="{Binding Status.Name,UpdateSourceTrigger=PropertyChanged}" 
                                    ToolTip="{Binding Status}"
                                    />
 

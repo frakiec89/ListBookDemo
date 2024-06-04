@@ -20,7 +20,7 @@ namespace ListBookDemo.MyWPF
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
              _service = new ServiceBook();
-             _gameLogic = new GameLogic(App.User);
+            _gameLogic = new GameLogic(App.User); ;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -64,15 +64,12 @@ namespace ListBookDemo.MyWPF
                     MessageBox.Show(ex.Message);
                 }
             }
-            gridUser.DataContext = null;
-            gridUser.DataContext = App.User;
         }
 
         private void TEMPFARM_Click(object sender, RoutedEventArgs e)
         {
             App.User.Experience += 200;
-            gridUser.DataContext = null;
-            gridUser.DataContext = App.User;
+            App.User.Bay ( 200);
         }
     }
 }

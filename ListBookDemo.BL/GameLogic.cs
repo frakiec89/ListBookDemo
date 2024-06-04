@@ -15,8 +15,14 @@ namespace ListBookDemo.BL
         public GameLogic(User  user )
         {
             _user = user;
+            _service = new ServiceBook();
+            _user.PropertyChanged += _user_PropertyChanged;
         }
 
+        private void _user_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            _usService.SaveUser(_user);
+        }
 
         public void BayBook (Book book , Action<string> message)
         {

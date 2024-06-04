@@ -28,5 +28,20 @@ namespace ListBookDemo.MyWPF.Forms
             _service = new ServiceBook();
             listBook.ItemsSource = _service.BooksUser(App.User.UserId);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _service.ClearBook(App.User.UserId);
+                listBook.ItemsSource = _service.BooksUser(App.User.UserId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+          
+        }
     }
 }

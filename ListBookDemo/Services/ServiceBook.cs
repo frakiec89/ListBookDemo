@@ -45,5 +45,20 @@ namespace ListBookDemo.DB.Services
             }
         }
 
+
+        public void ClearBook (int idUser)
+        {
+            try
+            {
+                _context.BookHistories.
+                    RemoveRange(_context.BookHistories.Where(x => x.UserId == idUser));
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

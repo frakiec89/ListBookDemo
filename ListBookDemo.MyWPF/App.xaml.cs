@@ -13,7 +13,7 @@ namespace ListBookDemo.MyWPF
     public partial class App : Application
     {
         public static SqliteContext sqliteContext;
-        public static User User { get; set; }
+        public  static User User { get; set; }
 
         public App ()
         {

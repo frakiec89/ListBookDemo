@@ -7,7 +7,18 @@
         mc:Ignorable="d"
         Title="WindowBookLibrary" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="listBook">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="177*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="663*"/>
+            <ColumnDefinition Width="137*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <ListBox x:Name="listBook" Margin="5" Grid.RowSpan="2"  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -38,5 +49,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Grid.Column="1"
+                Click="Button_Click">Выкинуть книги</Button>
+        
     </Grid>
 </Window>
