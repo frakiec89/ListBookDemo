@@ -117,12 +117,12 @@
                 Margin="5" Padding="5"
                 x:Name="btnBook"
                     Click="btnBook_Click"
-                    >Книги</Button>
+                    >Магазин книг</Button>
 
             <Button x:Name="btnLibrary"
                      Margin="5" Padding="5"
                     Click="btnLibrary_Click"
-                    >Купленные книги</Button>
+                    >Мои книги</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -47,8 +47,7 @@ namespace ListBookDemo.BL
             StatusUser statusUser = new StatusUser(); 
             switch (type)
             {
-                case StatusType.No:  statusUser = new StatusUser();
-                    break; 
+                case StatusType.No: message("Функция не доступанв"); return ;
                 case StatusType.Junior: statusUser = new Junior(); break;
                 case StatusType.Middle: statusUser = new Middle(); break;
             }
@@ -60,6 +59,10 @@ namespace ListBookDemo.BL
                     _user.Status = statusUser;
                     _usService.SaveUser(_user);
                     message($"Пользователь поменял статус на {_user.Status.Name}");
+                }
+                else
+                {
+                    message("Вы не соответсвуете выбраной должности");
                 }
             }
             catch (Exception ex)
