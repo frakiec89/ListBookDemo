@@ -25,7 +25,8 @@ namespace ListBookDemo.MyWPF
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            gridUser.DataContext = App.User;   
+            gridUser.DataContext = App.User;
+            jobUser.DataContext = App.User;
         }
 
         private void btnLibrary_Click(object sender, RoutedEventArgs e)
@@ -70,6 +71,12 @@ namespace ListBookDemo.MyWPF
         {
             App.User.Experience += 200;
             App.User.Bay ( 200);
+        }
+
+        private void btnVacancies_Click(object sender, RoutedEventArgs e)
+        {
+           MyWPF.Forms.ListVacanciesWindow window = new Forms.ListVacanciesWindow();
+            window.ShowDialog();
         }
     }
 }

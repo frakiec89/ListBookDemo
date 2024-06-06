@@ -18,7 +18,8 @@ namespace ListBookDemo.MyWPF
         public App ()
         {
             sqliteContext = new SqliteContext ();
-            User = sqliteContext.Users.Include(x=>x.Status).Where(x=>x.UserId==1).First();
+            User = sqliteContext.Users.Include(x=>x.Status).Include(x=>x.Job).Where(x=>x.UserId==1).First();
+
         }
     }
 

@@ -106,9 +106,6 @@
             </Grid>
         </Border>
 
-
-
-
         <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Grid.Column="0" Grid.Row="1"
@@ -124,5 +121,36 @@
                     Click="btnLibrary_Click"
                     >Мои книги</Button>
         </StackPanel>
+
+        <Border Grid.Column="0" Grid.Row="2"
+                Style="{StaticResource baseBord}"
+                >
+            <Grid x:Name="jobUser">
+                <StackPanel>
+                    <Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Работа:</Label>
+                            <Button Margin="10,2,2,2"
+                                HorizontalAlignment="Right"
+                                x:Name="btnVacancies"
+                                    Click="btnVacancies_Click"
+                                    >Вакансии</Button>
+                        </StackPanel> 
+                    </Border>
+                    <Label>Работа:</Label>
+
+                    <Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Должность:</Label>
+                            <Label Content="{Binding Job.Name,
+                                UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+            
+        </Border>
+        
     </Grid>
 </Window>

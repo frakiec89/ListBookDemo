@@ -11,7 +11,6 @@ namespace ListBookDemo.BL
         ServiceBook _service = new ServiceBook();
         UserService _usService = new UserService();
 
-
         public GameLogic(User  user )
         {
             _user = user;

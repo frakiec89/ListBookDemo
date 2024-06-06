@@ -23,6 +23,8 @@ namespace ListBookDemo.DB.Model
         private StatusUser? _statusUser;
         public StatusUser? Status {  get => _statusUser; set { _statusUser = value; OnPropertyChanged("Status"); } }
 
+        private JobBase? _job;
+        public JobBase? Job { get => _job; set { _job = value; OnPropertyChanged("Job"); } }
 
 
         public void Bay (double price)

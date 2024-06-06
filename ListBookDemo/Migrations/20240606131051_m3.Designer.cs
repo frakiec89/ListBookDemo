@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ListBookDemo.DB.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20240603052858_M1")]
-    partial class M1
+    [Migration("20240606131051_m3")]
+    partial class m3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,6 +126,35 @@ namespace ListBookDemo.DB.Migrations
                     b.ToTable("BookHistories");
                 });
 
+            modelBuilder.Entity("ListBookDemo.DB.Model.JobBase", b =>
+                {
+                    b.Property<int>("JobId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("JobId");
+
+                    b.ToTable("JobBases");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("JobBase");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("ListBookDemo.DB.Model.StatusUser", b =>
                 {
                     b.Property<int>("StatusUserId")
@@ -170,6 +199,9 @@ namespace ListBookDemo.DB.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("JobId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -177,7 +209,12 @@ namespace ListBookDemo.DB.Migrations
                     b.Property<int?>("StatusUserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Wallet")
+                        .HasColumnType("REAL");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("JobId");
 
                     b.HasIndex("StatusUserId");
 
@@ -189,8 +226,23 @@ namespace ListBookDemo.DB.Migrations
                             UserId = 1,
                             Experience = 0.0,
                             ImagePath = "/Image\\NoImage.png",
-                            Name = "TestUser"
+                            Name = "TestUser",
+                            Wallet = 100000.0
                         });
+                });
+
+            modelBuilder.Entity("ListBookDemo.DB.Model.Courier", b =>
+                {
+                    b.HasBaseType("ListBookDemo.DB.Model.JobBase");
+
+                    b.HasDiscriminator().HasValue("Courier");
+                });
+
+            modelBuilder.Entity("ListBookDemo.DB.Model.Janitor", b =>
+                {
+                    b.HasBaseType("ListBookDemo.DB.Model.JobBase");
+
+                    b.HasDiscriminator().HasValue("Janitor");
                 });
 
             modelBuilder.Entity("ListBookDemo.DB.Model.Junior", b =>
@@ -228,9 +280,15 @@ namespace ListBookDemo.DB.Migrations
 
             modelBuilder.Entity("ListBookDemo.DB.Model.User", b =>
                 {
+                    b.HasOne("ListBookDemo.DB.Model.JobBase", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId");
+
                     b.HasOne("ListBookDemo.DB.Model.StatusUser", "Status")
                         .WithMany()
                         .HasForeignKey("StatusUserId");
+
+                    b.Navigation("Job");
 
                     b.Navigation("Status");
                 });

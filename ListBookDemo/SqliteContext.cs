@@ -18,7 +18,11 @@ namespace ListBookDemo.DB
         public DbSet<StatusUser> StatusUsers { get; set; }  
         public DbSet<Junior> Juniors { get; set; }
         public DbSet<Middle> Middles { get; set; }
+ 
 
+        public DbSet<JobBase> JobBases { get; set; }
+        public DbSet<Janitor> Janitors { get; set; }    
+        public DbSet<Courier> Couriers { get; set; }
 
 
         public DbSet<Book> Books { get; set;}
@@ -27,16 +31,12 @@ namespace ListBookDemo.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-                        
-            
-
-
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
                     new User { UserId= 1 ,  Name="TestUser"
                     , ImagePath=@"/Image\NoImage.png" ,
-                        Experience = 0  , Wallet = 100000
+                        Experience = 0  , Wallet = 100000 
                     }
                 });
 

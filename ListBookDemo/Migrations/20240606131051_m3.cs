@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ListBookDemo.DB.Migrations
 {
     /// <inheritdoc />
-    public partial class M1 : Migration
+    public partial class m3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,6 +27,22 @@ namespace ListBookDemo.DB.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.BookId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobBases",
+                columns: table => new
+                {
+                    JobId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Salary = table.Column<double>(type: "REAL", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagePath = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobBases", x => x.JobId);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,13 +69,20 @@ namespace ListBookDemo.DB.Migrations
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Experience = table.Column<double>(type: "REAL", nullable: false),
+                    Wallet = table.Column<double>(type: "REAL", nullable: false),
                     StatusUserId = table.Column<int>(type: "INTEGER", nullable: true),
+                    JobId = table.Column<int>(type: "INTEGER", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ImagePath = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_JobBases_JobId",
+                        column: x => x.JobId,
+                        principalTable: "JobBases",
+                        principalColumn: "JobId");
                     table.ForeignKey(
                         name: "FK_Users_StatusUsers_StatusUserId",
                         column: x => x.StatusUserId,
@@ -110,8 +133,8 @@ namespace ListBookDemo.DB.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "Experience", "ImagePath", "Name", "StatusUserId" },
-                values: new object[] { 1, 0.0, "/Image\\NoImage.png", "TestUser", null });
+                columns: new[] { "UserId", "Experience", "ImagePath", "JobId", "Name", "StatusUserId", "Wallet" },
+                values: new object[] { 1, 0.0, "/Image\\NoImage.png", null, "TestUser", null, 100000.0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookHistories_BookId",
@@ -122,6 +145,11 @@ namespace ListBookDemo.DB.Migrations
                 name: "IX_BookHistories_UserId",
                 table: "BookHistories",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_JobId",
+                table: "Users",
+                column: "JobId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_StatusUserId",
@@ -140,6 +168,9 @@ namespace ListBookDemo.DB.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "JobBases");
 
             migrationBuilder.DropTable(
                 name: "StatusUsers");
